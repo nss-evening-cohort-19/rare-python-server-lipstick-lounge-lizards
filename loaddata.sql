@@ -89,17 +89,17 @@ INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 
-INSERT INTO `Users` VALUES (null, "Kristen", "Chandler", "krismchandler@gmail.com", "bio here”, "kmchandler”, "password”, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1”,  "not active");
-INSERT INTO `Users` VALUES (null, "Rochelle", "Rossman", "Rochelle.rossman@gmail.com", "bio here”, "rrossman”, "password”, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1”,  "not active");
-INSERT INTO `Users` VALUES (null, "Jacob", "Martin", "jmartin@gmail.com", "bio here”, "jmartin”, "password”, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1”,  "not active");
-INSERT INTO `Users` VALUES (null, "Sariah", "Campopiano", "scampopiano@gmail.com", "bio here”, "scampopiano”, "password”, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1”,  "not active");
-INSERT INTO `Users` VALUES (null, "Joel", "McAnulty", "jmcanulty@gmail.com", "bio here”, "jmcanulty”, "password”, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1”,  "not active");
+INSERT INTO `Users` VALUES (null, "Kristen", "Chandler", "krismchandler@gmail.com", "bio here", "kmchandler", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
+INSERT INTO `Users` VALUES (null, "Rochelle", "Rossman", "Rochelle.rossman@gmail.com", "bio here", "rrossman", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
+INSERT INTO `Users` VALUES (null, "Jacob", "Martin", "jmartin@gmail.com", "bio here", "jmartin", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
+INSERT INTO `Users` VALUES (null, "Sariah", "Campopiano", "scampopiano@gmail.com", "bio here", "scampopiano", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
+INSERT INTO `Users` VALUES (null, "Joel", "McAnulty", "jmcanulty@gmail.com", "bio here", "jmcanulty", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
 
 
-INSERT INTO `DemotionQueue` VALUES ("silly mistake”, 1, 2);
+INSERT INTO `DemotionQueue` VALUES ("silly mistake", 1, 2);
 INSERT INTO `DemotionQueue` VALUES ("used office microwave to heat fish", 2, 5);
-INSERT INTO `DemotionQueue` VALUES ("leaves passive aggressive notes around office”, 1, 3);
-INSERT INTO `DemotionQueue` VALUES ("always whistles”, 3, 2);
+INSERT INTO `DemotionQueue` VALUES ("leaves passive aggressive notes around office", 1, 3);
+INSERT INTO `DemotionQueue` VALUES ("always whistles", 3, 2);
 
 
 INSERT INTO `Subscriptions` VALUES (null, 3, 2, 2020-11-1);
@@ -108,10 +108,10 @@ INSERT INTO `Subscriptions` VALUES (null, 2, 3, 2020-11-1);
 INSERT INTO `Subscriptions` VALUES (null, 2, 4, 2020-11-1);
 
 
-INSERT INTO `Posts` VALUES (null, 3, 2, "Learning Python”, 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content”, "approved”);
-INSERT INTO `Posts` VALUES (null, 1, 4, "Learning Python”, 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content”, "approved”);
-INSERT INTO `Posts` VALUES (null, 3, 3, "Learning Python”, 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content”, "approved”);
-INSERT INTO `Posts` VALUES (null, 2, 1, "Learning Python”, 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content”, "approved”);
+INSERT INTO `Posts` VALUES (null, 3, 2, "Learning Python", 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content", "approved");
+INSERT INTO `Posts` VALUES (null, 1, 4, "Learning Python", 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content", "approved");
+INSERT INTO `Posts` VALUES (null, 3, 3, "Learning Python", 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content", "approved");
+INSERT INTO `Posts` VALUES (null, 2, 1, "Learning Python", 2020-11-1, "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "message content", "approved");
 
 
 
