@@ -51,7 +51,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_GET(self):
         """Handle Get requests to the server"""
         self._set_headers(200)
-
         response = {}
 
         parsed = self.parse_url(self.path)
@@ -84,7 +83,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
-
+            self.wfile.write(response.encode())
 
     def do_POST(self):
         """Make a post request to the server"""
