@@ -1,4 +1,5 @@
 class Reactions():
-    def __init__(self, id, emoji):
+    def __init__(self, id, label, image_url):
         self.id = id
-        self.emoji = emoji
+        self.label = label,
+        self.image_url = image_url
