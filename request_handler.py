@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import create_user, login_user, get_all_categories
+from views import create_user, login_user, get_all_categories, create_category
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -104,11 +104,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == 'comments':
             response = create_comment(post_body)
         if resource == 'categories':
-            response = create_category(post_body)
+            new_category = create_category(post_body)
+            self.wfile.write(f'{new_category}'.encode())
         if resource == 'reactions':
             response = create_reaction(post_body)
-
-        self.wfile.write(response.encode())
 
     def do_PUT(self):
         """Handles PUT requests to the server"""
