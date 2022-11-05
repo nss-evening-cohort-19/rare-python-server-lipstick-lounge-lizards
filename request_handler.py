@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import create_user, login_user
+from views import create_user, login_user, get_all_categories
 from views import get_all_comments, get_single_comment, create_comment, delete_comment, update_comment
 
 
@@ -85,6 +85,10 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> main
             self.wfile.write(response.encode())
 
     def do_POST(self):
@@ -93,7 +97,11 @@ class HandleRequests(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
+<<<<<<< HEAD
         (resource, id) = self.parse_url(self.path)
+=======
+        resource, _ = self.parse_url(self.path)
+>>>>>>> main
 
         if resource == 'login':
             response = login_user(post_body)
