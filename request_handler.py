@@ -1,12 +1,13 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views import create_user, login_user
+from views.reactions_requests import get_all_reactions,get_single_reaction, create_reaction
 
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
-    def parse_url(self):
+    def parse_url(self,path):
         """Parse the url into the resource and id"""
         path_params = self.path.split('/')
         resource = path_params[1]
@@ -59,51 +60,50 @@ class HandleRequests(BaseHTTPRequestHandler):
         if '?' not in self.path:
             ( resource, id ) = parsed
 
-            if resource == "posts":
-                if id is not None:
-                    response = f"{get_single_post(id)}"
-                else:
-                    response = f"{get_all_posts()}"
-            if resource == "users":
-                if id is not None:
-                    response = f"{get_single_user(id)}"
-                else:
-                    response = f"{get_all_users()}"
-            if resource == "comments":
-                if id is not None:
-                    response = f"{get_single_comment(id)}"
-                else:
-                    response = f"{get_all_comments()}"
-            if resource == "categories":
-                if id is not None:
-                    response = f"{get_single_category(id)}"
-                else:
-                    response = f"{get_all_categories()}"
+            # if resource == "posts":
+            #     if id is not None:
+            #         response = f"{get_single_post(id)}"
+            #     else:
+            #         response = f"{get_all_posts()}"
+            # if resource == "users":
+            #     if id is not None:
+            #         response = f"{get_single_user(id)}"
+            #     else:
+            #         response = f"{get_all_users()}"
+            # if resource == "comments":
+            #     if id is not None:
+            #         response = f"{get_single_comment(id)}"
+            #     else:
+            #         response = f"{get_all_comments()}"
+            # if resource == "categories":
+            #     if id is not None:
+            #         response = f"{get_single_category(id)}"
+            #     else:
+            #         response = f"{get_all_categories()}"
             if resource == "reactions":
                 if id is not None:
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
 
-
+            self.wfile.write(response.encode())
     def do_POST(self):
         """Make a post request to the server"""
         self._set_headers(201)
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
-        resource, _ = self.parse_url()
-
-        if resource == 'login':
-            response = login_user(post_body)
-        if resource == 'register':
-            response = create_user(post_body)
-        if resource == 'posts':
-            response = create_post(post_body)
-        if resource == 'comments':
-            response = create_comment(post_body)
-        if resource == 'categories':
-            response = create_category(post_body)
+        resource, _ = self.parse_url(self.path)
+        # if resource == 'login':
+        #     response = login_user(post_body)
+        # if resource == 'register':
+        #     response = create_user(post_body)
+        # if resource == 'posts':
+        #     response = create_post(post_body)
+        # if resource == 'comments':
+        #     response = create_comment(post_body)
+        # if resource == 'categories':
+        #     response = create_category(post_body)
         if resource == 'reactions':
             response = create_reaction(post_body)
 
@@ -118,14 +118,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         (resource, id) = self.parse_url(self.path)
         success = False
 
-        if resource == "posts":
-            success = update_post(id, post_body)
-        if resource == "users":
-            update_user(id, post_body)
-        if resource == "comments":
-            update_comment(id, post_body)
-        if resource == "categories":
-            update_category(id, post_body)
+        # if resource == "posts":
+        #     success = update_post(id, post_body)
+        # if resource == "users":
+        #     update_user(id, post_body)
+        # if resource == "comments":
+        #     update_comment(id, post_body)
+        # if resource == "categories":
+        #     update_category(id, post_body)
         if resource == "reactions":
             update_reaction(id, post_body)
 
