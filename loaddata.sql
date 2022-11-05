@@ -51,10 +51,10 @@ CREATE TABLE "Comments" (
   FOREIGN KEY(`author_id`) REFERENCES `Users`(`id`)
 );
 
-CREATE TABLE "Reactions" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "label" varchar,
-  "image_url" varchar
+CREATE TABLE `Reactions` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `label` varchar,
+  `image_url` varchar
 );
 
 CREATE TABLE "PostReactions" (
@@ -85,15 +85,7 @@ CREATE TABLE "Categories" (
   "label" varchar
 );
 
-INSERT INTO Categories ('label') VALUES ('News');
-INSERT INTO Tags ('label') VALUES ('JavaScript');
-INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 
-SELECT
-    a.id,
-    a.label,
-    a.image_url
-FROM Reactions a
 INSERT INTO `Users` VALUES (null, "Kristen", "Chandler", "krismchandler@gmail.com", "bio here", "kmchandler", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
 INSERT INTO `Users` VALUES (null, "Rochelle", "Rossman", "Rochelle.rossman@gmail.com", "bio here", "rrossman", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");
 INSERT INTO `Users` VALUES (null, "Jacob", "Martin", "jmartin@gmail.com", "bio here", "jmartin", "password", "https://img.freepik.com/premium-vector/cartoon-cute-funny-python-snake-jungle-tree_53500-462.jpg?w=2000", "2020-11-1",  "not active");

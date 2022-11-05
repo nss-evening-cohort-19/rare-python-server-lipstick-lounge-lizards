@@ -3,15 +3,6 @@ import sqlite3
 import json
 from models import Reactions
 
-REACTIONS = [
-        {
-        "id": 7,
-        "label": [
-            "kiss"
-        ],
-        "image_url": "https://pngtree.com/freepng/kiss-emoji-vector-icon_3719375.html"
-    },
-    ]
 def get_all_reactions():
     """_summary_
     Returns:
@@ -46,8 +37,6 @@ def get_single_reaction(id):
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
-        # Use a ? parameter to inject a variable's value
-        # into the SQL statement.
         db_cursor.execute("""
         SELECT
             a.id,
@@ -57,10 +46,9 @@ def get_single_reaction(id):
         WHERE a.id = ?
         """, ( id, ))
 
-        # Load the single result into memory
+
         data = db_cursor.fetchone()
 
-        # Create an employee instance from the current row
         reaction = Reactions(data['id'], data['label'], data['image_url'])
         return json.dumps(reaction.__dict__)
 
@@ -89,32 +77,33 @@ def create_reaction(new_reaction):
 
     return json.dumps(new_reaction)
 
-# def update_animal(id, new_animal):
-#     """_summary_
-#     """
-#     with sqlite3.connect("./db.sqlite3") as conn:
-#         db_cursor = conn.cursor()
+def update_reaction(id, new_reaction):
+    """_summary_
+    """
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
 
-#         db_cursor.execute("""
-#         UPDATE Animal
-#             SET
-#                 name = ?,
-#                 breed = ?,
-#                 status = ?,
-#                 location_id = ?,
-#                 customer_id = ?
-#         WHERE id = ?
-#         """, (new_animal['name'], new_animal['breed'],
-#               new_animal['status'], new_animal['locationId'],
-#               new_animal['customerId'], id, ))
+        db_cursor.execute("""
+        UPDATE Reactions
+            SET
+                label = ?,
+                image_url = ?
+        WHERE id = ?
+        """, (new_reaction['label'], new_reaction['image_url'], id, ))
+        rows_affected = db_cursor.rowcount
 
-#         # Were any rows affected?
-#         # Did the client send an `id` that exists?
-#         rows_affected = db_cursor.rowcount
+    if rows_affected == 0:
+        return False
+    else:
+        return True
 
-#     if rows_affected == 0:
-#         # Forces 404 response by main module
-#         return False
-#     else:
-#         # Forces 204 response by main module
-#         return True
+def delete_reaction(id):
+    """_summary_
+    """
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Reactions
+        WHERE id = ?
+        """, (id, ))
