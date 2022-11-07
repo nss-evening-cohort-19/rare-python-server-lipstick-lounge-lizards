@@ -1,6 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import create_user, login_user
 from views.reactions_requests import (get_all_reactions,get_single_reaction,
                                       create_reaction,update_reaction,delete_reaction)
 from views import create_user, login_user, get_all_categories
