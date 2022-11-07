@@ -1,14 +1,15 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views import create_user, login_user
-from views.reactions_requests import (get_all_reactions,get_single_reaction, 
+from views.reactions_requests import (get_all_reactions,get_single_reaction,
                                       create_reaction,update_reaction,delete_reaction)
+from views import create_user, login_user, get_all_categories
 
 
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
-    def parse_url(self,path):
+    def parse_url(self, path):
         """Parse the url into the resource and id"""
         path_params = self.path.split('/')
         resource = path_params[1]
@@ -86,8 +87,9 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
-
+              
             self.wfile.write(response.encode())
+
     def do_POST(self):
         """Make a post request to the server"""
         self._set_headers(201)
