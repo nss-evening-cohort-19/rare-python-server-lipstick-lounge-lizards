@@ -87,7 +87,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
-              
+
             self.wfile.write(response.encode())
 
     def do_POST(self):
