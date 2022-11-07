@@ -135,7 +135,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             self._set_headers(204)
         else:
             self._set_headers(404)
-      
+
         self.wfile.write("".encode())
 
     def do_DELETE(self):
@@ -154,7 +154,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
-   
         self.wfile.write("".encode())
 
 
