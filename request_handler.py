@@ -5,6 +5,7 @@ import json
 from views.reactions_requests import (get_all_reactions,get_single_reaction,
                                       create_reaction,update_reaction,delete_reaction)
 from views.categories_requests import get_all_categories
+from views.subscriptions_requests import (get_all_subscriptions, get_single_subscription,       create_subscription, update_subscription, delete_subscription)
 from views import create_user, login_user
 
 
@@ -89,6 +90,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
+            elif resource == "subscriptions":
+                if id is not None:
+                    response = f"{get_single_subscription(id)}"
+                else:
+                    response = f"{get_all_subscriptions()}"
 
         self.wfile.write(response.encode())
 
@@ -101,17 +107,18 @@ class HandleRequests(BaseHTTPRequestHandler):
         (resource, id)= self.parse_url()
         if resource == 'login':
             response = login_user(post_body)
-        if resource == 'register':
+        elif resource == 'register':
             response = create_user(post_body)
-        if resource == 'posts':
+        elif resource == 'posts':
             response = create_post(post_body)
-        if resource == 'comments':
+        elif resource == 'comments':
             response = create_comment(post_body)
-        if resource == 'categories':
+        elif resource == 'categories':
             response = create_category(post_body)
-        if resource == 'reactions':
+        elif resource == 'reactions':
             response = create_reaction(post_body)
-
+        elif resource == 'subscriptions':
+            response = create_subscription(post_body)
         self.wfile.write(response.encode())
 
     def do_PUT(self):
@@ -126,14 +133,16 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "posts":
             update_post(id, post_body)
-        if resource == "users":
+        elif resource == "users":
             update_user(id, post_body)
-        if resource == "comments":
+        elif resource == "comments":
             update_comment(id, post_body)
-        if resource == "categories":
+        elif resource == "categories":
             update_category(id, post_body)
-        if resource == "reactions":
+        elif resource == "reactions":
             update_reaction(id, post_body)
+        elif resource == "subscriptions":
+            update_subscription(id, post_body)
 
         if success:
             self._set_headers(204)
@@ -158,6 +167,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
+        if resource == "subscriptions":
+            delete_subscription(id)
         self.wfile.write("".encode())
 
 
