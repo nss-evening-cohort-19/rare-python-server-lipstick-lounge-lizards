@@ -1,8 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from views import create_user, login_user, get_all_posts, get_single_post, create_post, get_all_categories
 import json
-from views import create_user, login_user, get_all_posts, get_single_post, create_post
-
-
 class HandleRequests(BaseHTTPRequestHandler):
     """Handles the requests to this server"""
 
@@ -83,6 +81,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
+
             self.wfile.write(response.encode())
 
     def do_POST(self):
