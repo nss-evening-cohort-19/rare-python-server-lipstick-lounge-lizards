@@ -21,7 +21,8 @@ def get_all_subscriptions():
         subscriptions = []
         dataset = db_cursor.fetchall()
         for row in dataset:
-            subscription = Subscriptions(row['id'], row['follower_id'], row['author_id'], row['created_on'])
+            subscription = Subscriptions(row['id'], row['follower_id'], 
+                                         row['author_id'], row['created_on'])
             subscriptions.append(subscription.__dict__)
     return json.dumps(subscriptions)
 
