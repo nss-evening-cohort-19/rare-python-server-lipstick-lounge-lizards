@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import create_user, login_user, get_all_categories
+from views import create_user, login_user, get_all_categories, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -84,7 +84,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
-                    
+
             self.wfile.write(response.encode())
 
     def do_POST(self):
@@ -108,7 +108,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == 'reactions':
             response = create_reaction(post_body)
 
-        self.wfile.write(response.encode())
+        self.wfile.write("".encode())
 
     def do_PUT(self):
         """Handles PUT requests to the server"""
@@ -129,6 +129,10 @@ class HandleRequests(BaseHTTPRequestHandler):
             update_category(id, post_body)
         if resource == "reactions":
             update_reaction(id, post_body)
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
 
         self.wfile.write("".encode())
 
@@ -148,7 +152,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
-        
+
         self.wfile.write("".encode())
 
 

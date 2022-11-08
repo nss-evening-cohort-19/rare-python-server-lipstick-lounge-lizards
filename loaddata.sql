@@ -156,3 +156,10 @@ INSERT INTO `Categories` VALUES (null, "javascript");
 INSERT INTO `Categories` VALUES (null, "react");
 INSERT INTO `Categories` VALUES (null, "css");
 INSERT INTO `Categories` VALUES (null, "html");
+
+SELECT
+    c.id,
+    c.author_id,
+    c.post_id,
+    c.content
+FROM Comments c
