@@ -155,9 +155,30 @@ INSERT INTO `Categories` VALUES (null, "css");
 INSERT INTO `Categories` VALUES (null, "html");
 
 SELECT
+<<<<<<< HEAD
     a.id,
     a.label,
     a.image_url
 FROM Reactions a
 
 -- DELETE FROM PostReactions where id = 7
+=======
+    c.id,
+    c.author_id,
+    c.post_id,
+    c.content
+FROM Comments c
+
+SELECT
+  u.id, 
+  u.first_name,
+  u.last_name,
+  u.email,
+  u.bio,
+  u.username,
+  u.password,
+  u.profile_image_url,
+  u.created_on,
+  u.active
+FROM Users u
+>>>>>>> main
