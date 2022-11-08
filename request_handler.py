@@ -1,11 +1,8 @@
 # pylint: disable=W0622
 """main"""
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from views import (create_user, login_user, get_all_posts, get_single_post, create_post, get_all_categories, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_all_reactions,get_single_reaction, create_reaction,update_reaction,delete_reaction)
 import json
-from views.reactions_requests import (get_all_reactions,get_single_reaction,
-                                      create_reaction,update_reaction,delete_reaction)
-from views.categories_requests import get_all_categories
-from views import create_user, login_user
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -56,7 +53,6 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_GET(self):
         """Handle Get requests to the server"""
         self._set_headers(200)
-
         response = {}
 
         parsed = self.parse_url()
@@ -134,6 +130,10 @@ class HandleRequests(BaseHTTPRequestHandler):
             update_category(id, post_body)
         if resource == "reactions":
             update_reaction(id, post_body)
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
 
         if success:
             self._set_headers(204)
@@ -158,6 +158,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
+
         self.wfile.write("".encode())
 
 
