@@ -7,7 +7,7 @@ from views import (create_user, login_user, get_all_posts, get_single_post, crea
                    delete_comment, update_comment, get_all_reactions,get_single_reaction,
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
                    get_all_subscriptions, get_single_subscription,create_subscription,
-                   update_subscription, delete_subscription)
+                   update_subscription, delete_subscription, create_tag)
 
 
 
@@ -115,13 +115,15 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_post(post_body)
         elif resource == 'comments':
             response = create_comment(post_body)
-        if resource == 'categories':
+        elif resource == 'categories':
             new_category = create_category(post_body)
             self.wfile.write(f'{new_category}'.encode())
-        if resource == 'reactions':
+        elif resource == 'reactions':
             response = create_reaction(post_body)
         elif resource == 'subscriptions':
             response = create_subscription(post_body)
+        elif response == 'tags':
+            response = create_tag(post_body)
         self.wfile.write(response.encode())
 
     def do_PUT(self):
