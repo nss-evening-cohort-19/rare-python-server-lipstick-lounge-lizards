@@ -155,7 +155,8 @@ INSERT INTO `Categories` VALUES (null, "css");
 INSERT INTO `Categories` VALUES (null, "html");
 
 SELECT
-    a.id,
-    a.label,
-    a.image_url
-FROM Reactions a
+    c.id,
+    c.author_id,
+    c.post_id,
+    c.content
+FROM Comments c
