@@ -35,7 +35,7 @@ def get_all_users():
         return json.dumps(users)
     
 def get_single_user(id):
-    with sqlite3.connect("./rare.db") as conn:
+    with sqlite3.connect("./db.sqlite3") as conn:
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
         
