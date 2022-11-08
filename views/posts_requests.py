@@ -81,22 +81,12 @@ def create_post(new_post):
 
     return json.dumps(new_post)
 
-<<<<<<< HEAD
-def delete_post(id):
-    '''deletes a single post'''
-=======
 def update_post(id, new_post):
     '''updates a single post'''
->>>>>>> main
     with sqlite3.connect("./db.sqlite3") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
-<<<<<<< HEAD
-        DELETE FROM Posts
-        WHERE id = ?
-        """, (id, ))
-=======
         UPDATE Posts
             SET
                 user_id = ?,
@@ -117,4 +107,13 @@ def update_post(id, new_post):
         return False
     else:
         return True
->>>>>>> main
+
+def delete_post(id):
+    '''deletes a single post'''
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Posts
+        WHERE id = ?
+        """, (id, ))
