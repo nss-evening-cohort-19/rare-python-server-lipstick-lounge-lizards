@@ -2,7 +2,7 @@
 """main"""
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import (create_user, login_user, get_all_posts, get_single_post, create_post, update_post,
+from views import (create_user, login_user, get_all_posts, get_single_post, create_post, update_post, delete_post,
                    get_all_categories,create_category, get_all_comments, get_single_comment, create_comment,
                    delete_comment, update_comment, get_all_reactions,get_single_reaction,
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
