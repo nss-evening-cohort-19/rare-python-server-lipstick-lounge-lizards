@@ -159,3 +159,5 @@ SELECT
     a.label,
     a.image_url
 FROM Reactions a
+
+-- DELETE FROM PostReactions where id = 7
