@@ -160,3 +160,16 @@ SELECT
     c.post_id,
     c.content
 FROM Comments c
+
+SELECT
+  u.id, 
+  u.first_name,
+  u.last_name,
+  u.email,
+  u.bio,
+  u.username,
+  u.password,
+  u.profile_image_url,
+  u.created_on,
+  u.active
+FROM Users u
