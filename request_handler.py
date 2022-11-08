@@ -1,5 +1,6 @@
 # pylint: disable=W0622
 """main"""
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from views import (create_user, login_user, get_all_posts, get_single_post, create_post,
@@ -108,7 +109,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == 'comments':
             response = create_comment(post_body)
         if resource == 'categories':
-            response = create_category(post_body)
+            new_category = create_category(post_body)
+            self.wfile.write(f'{new_category}'.encode())
         if resource == 'reactions':
             response = create_reaction(post_body)
 
