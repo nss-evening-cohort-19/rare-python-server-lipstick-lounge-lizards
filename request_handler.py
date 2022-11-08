@@ -1,7 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import create_user, login_user, get_all_categories
-from views import get_all_comments, get_single_comment, create_comment, delete_comment, update_comment
+from views import create_user, login_user, get_all_categories, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -85,10 +84,7 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
-<<<<<<< HEAD
-=======
-                    
->>>>>>> main
+
             self.wfile.write(response.encode())
 
     def do_POST(self):
@@ -97,11 +93,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('content-length', 0))
         post_body = json.loads(self.rfile.read(content_len))
         response = ''
-<<<<<<< HEAD
-        (resource, id) = self.parse_url(self.path)
-=======
         resource, _ = self.parse_url(self.path)
->>>>>>> main
 
         if resource == 'login':
             response = login_user(post_body)
@@ -110,12 +102,13 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == 'posts':
             response = create_post(post_body)
         if resource == 'comments':
-            new_comment = create_comment(post_body)
-            self.wfile.write(f"{new_comment}".encode())
+            response = create_comment(post_body)
         if resource == 'categories':
             response = create_category(post_body)
         if resource == 'reactions':
             response = create_reaction(post_body)
+
+        self.wfile.write("".encode())
 
     def do_PUT(self):
         """Handles PUT requests to the server"""
@@ -131,7 +124,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         if resource == "users":
             update_user(id, post_body)
         if resource == "comments":
-            success = update_comment(id, post_body)
+            update_comment(id, post_body)
         if resource == "categories":
             update_category(id, post_body)
         if resource == "reactions":
@@ -155,11 +148,12 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_user(id)
         if resource == "comments":
             delete_comment(id)
-            self.wfile.write(f"{delete_comment}".encode())
         if resource == "categories":
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
+
+        self.wfile.write("".encode())
 
 
 def main():
