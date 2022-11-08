@@ -1,8 +1,15 @@
 # pylint: disable=W0622
 """main"""
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import (create_user, login_user, get_all_posts, get_single_post, create_post, get_all_categories, create_category, get_all_comments, get_single_comment, create_comment, delete_comment, update_comment, get_all_reactions,get_single_reaction, create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users)
 import json
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from views import (create_user, login_user, get_all_posts, get_single_post, create_post,
+                   get_all_categories,create_category, get_all_comments, get_single_comment, create_comment,
+                   delete_comment, update_comment, get_all_reactions,get_single_reaction,
+                   create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
+                   get_all_subscriptions, get_single_subscription,create_subscription,
+                   update_subscription, delete_subscription)
+
+
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -85,6 +92,11 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_reaction(id)}"
                 else:
                     response = f"{get_all_reactions()}"
+            elif resource == "subscriptions":
+                if id is not None:
+                    response = f"{get_single_subscription(id)}"
+                else:
+                    response = f"{get_all_subscriptions()}"
 
         self.wfile.write(response.encode())
 
@@ -97,18 +109,19 @@ class HandleRequests(BaseHTTPRequestHandler):
         (resource, id)= self.parse_url()
         if resource == 'login':
             response = login_user(post_body)
-        if resource == 'register':
+        elif resource == 'register':
             response = create_user(post_body)
-        if resource == 'posts':
+        elif resource == 'posts':
             response = create_post(post_body)
-        if resource == 'comments':
+        elif resource == 'comments':
             response = create_comment(post_body)
         if resource == 'categories':
             new_category = create_category(post_body)
             self.wfile.write(f'{new_category}'.encode())
         if resource == 'reactions':
             response = create_reaction(post_body)
-
+        elif resource == 'subscriptions':
+            response = create_subscription(post_body)
         self.wfile.write(response.encode())
 
     def do_PUT(self):
@@ -123,18 +136,16 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         if resource == "posts":
             update_post(id, post_body)
-        if resource == "users":
+        elif resource == "users":
             update_user(id, post_body)
-        if resource == "comments":
+        elif resource == "comments":
             update_comment(id, post_body)
-        if resource == "categories":
+        elif resource == "categories":
             update_category(id, post_body)
-        if resource == "reactions":
+        elif resource == "reactions":
             update_reaction(id, post_body)
-        if success:
-            self._set_headers(204)
-        else:
-            self._set_headers(404)
+        elif resource == "subscriptions":
+            update_subscription(id, post_body)
 
         if success:
             self._set_headers(204)
@@ -159,6 +170,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             delete_category(id)
         if resource == "reactions":
             delete_reaction(id)
+        if resource == "subscriptions":
+            delete_subscription(id)
 
         self.wfile.write("".encode())
 
