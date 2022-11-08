@@ -1,5 +1,5 @@
 """main package"""
-from .users_requests import login_user, create_user
+from .users_requests import login_user, create_user, get_all_users, get_single_user
 from .reactions_requests import (
   get_all_reactions,get_single_reaction, create_reaction,
   update_reaction,delete_reaction)
