@@ -11,3 +11,4 @@ from .comments_requests import (get_all_comments, get_single_comment,
                                 create_comment, delete_comment, update_comment)
 from .categories_requests import get_all_categories, create_category
 from .tags_requests import get_all_tags, create_tag
+from .post_tags_requests import create_post_tags

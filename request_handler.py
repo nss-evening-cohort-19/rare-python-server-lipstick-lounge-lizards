@@ -7,7 +7,7 @@ from views import (create_user, login_user, get_all_posts, get_single_post, crea
                    delete_comment, update_comment, get_all_reactions,get_single_reaction,
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
                    get_all_subscriptions, get_single_subscription,create_subscription,
-                   update_subscription, delete_subscription, get_all_tags, create_tag)
+                   update_subscription, delete_subscription, get_all_tags, create_tag, create_post_tags)
 
 
 
@@ -125,6 +125,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_subscription(post_body)
         elif resource == 'tags':
             response = create_tag(post_body)
+        elif resource == 'PostTags':
+            response = create_post_tags(post_body)
         self.wfile.write(response.encode())
 
     def do_PUT(self):
