@@ -101,10 +101,10 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = f"{get_all_tags()}"
 
         else:
-            (resource, query) = parsed
+            (resource, key, value) = parsed
 
-            if query.get('post_id') and resource == 'Comments':
-                response = get_comments_by_post(query['post_id'][0])
+            if resource == 'comments' and key == 'post_id':
+                response = get_comments_by_post(value)
 
         self.wfile.write(response.encode())
 
