@@ -2,12 +2,12 @@
 """main"""
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from views import (create_user, login_user, get_all_posts, get_single_post, create_post,
+from views import (create_user, login_user, get_all_posts, get_single_post, create_post, update_post, delete_post,
                    get_all_categories,create_category, get_all_comments, get_single_comment, create_comment,
                    delete_comment, update_comment, get_all_reactions,get_single_reaction,
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
                    get_all_subscriptions, get_single_subscription,create_subscription,
-                   update_subscription, delete_subscription, create_tag)
+                   update_subscription, delete_subscription, get_all_tags, create_tag)
 
 
 
@@ -97,6 +97,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_subscription(id)}"
                 else:
                     response = f"{get_all_subscriptions()}"
+            elif resource == "tags":
+                response = f"{get_all_tags()}"
 
         self.wfile.write(response.encode())
 
@@ -116,8 +118,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             response = create_comment(post_body)
         elif resource == 'categories':
-            new_category = create_category(post_body)
-            self.wfile.write(f'{new_category}'.encode())
+            response = create_category(post_body)
         elif resource == 'reactions':
             response = create_reaction(post_body)
         elif resource == 'subscriptions':
