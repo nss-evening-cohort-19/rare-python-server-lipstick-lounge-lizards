@@ -116,8 +116,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             response = create_comment(post_body)
         if resource == 'categories':
-            new_category = create_category(post_body)
-            self.wfile.write(f'{new_category}'.encode())
+            response = create_category(post_body)
         if resource == 'reactions':
             response = create_reaction(post_body)
         elif resource == 'subscriptions':
