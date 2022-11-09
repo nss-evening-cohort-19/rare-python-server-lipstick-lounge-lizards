@@ -123,7 +123,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_reaction(post_body)
         elif resource == 'subscriptions':
             response = create_subscription(post_body)
-        elif response == 'tags':
+        elif resource == 'tags':
             response = create_tag(post_body)
         self.wfile.write(response.encode())
 

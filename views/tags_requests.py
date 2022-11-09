@@ -26,9 +26,6 @@ def get_all_tags():
   
     return json.dumps(tags)
 
-import sqlite3
-import json
-
 def create_tag(new_tag):
     """Creating a new tag then adding it to 'Tags' table in db.sqlite3"""
     with sqlite3.connect('./db.sqlite3') as conn:
