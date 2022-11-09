@@ -10,3 +10,4 @@ from .posts_requests import (get_all_posts, get_single_post, create_post, update
 from .comments_requests import (get_all_comments, get_single_comment,
                                 create_comment, delete_comment, update_comment, get_comments_by_post)
 from .categories_requests import get_all_categories, create_category
+from .tags_requests import get_all_tags
