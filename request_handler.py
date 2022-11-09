@@ -4,7 +4,7 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from views import (create_user, login_user, get_all_posts, get_single_post, create_post, update_post, delete_post,
                    get_all_categories,create_category, get_all_comments, get_single_comment, create_comment,
-                   delete_comment, update_comment, get_all_reactions,get_single_reaction,
+                   delete_comment, update_comment, get_comments_by_post, get_all_reactions,get_single_reaction,
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
                    get_all_subscriptions, get_single_subscription,create_subscription,
                    update_subscription, delete_subscription)
@@ -97,7 +97,12 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_subscription(id)}"
                 else:
                     response = f"{get_all_subscriptions()}"
-
+        else: 
+            (resource, query) = parsed
+            
+            if query.get('post_id') and resource == 'Comments':
+                response = get_comments_by_post(query['post_id'][0])
+                
         self.wfile.write(response.encode())
 
     def do_POST(self):

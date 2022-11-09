@@ -111,3 +111,31 @@ def update_comment(id, new_comment):
     else:
         # Forces 204 response by main module
         return True
+
+def get_comments_by_post(post_id):
+    """
+    []
+    """
+
+    with sqlite3.connect('./db.sqlite3') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        SELECT
+            c.id,
+            c.author_id,
+            c.post_id,
+            c.content
+        FROM Comments c
+        WHERE c.post_id = ?
+        """, ( post_id, ))
+
+        comments = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            comments = Comments(row['id'], row['author_id'], 
+                            row['post_id'], row['content'])
+            comments.append(Comments.__dict__)
+
+    return json.dumps(comments)
