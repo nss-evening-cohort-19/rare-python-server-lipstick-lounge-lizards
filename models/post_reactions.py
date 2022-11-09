@@ -2,8 +2,8 @@
 """Module instantiates PostReactions class"""
 class PostReactions():
     """_summary_"""
-    def __init__(self, id, reaction_id, user_id, post_id):
+    def __init__(self, id, user_id, reaction_id, post_id):
         self.id = id
-        self.reaction_id = reaction_id
         self.user_id = user_id
+        self.reaction_id = reaction_id
         self.post_id = post_id
