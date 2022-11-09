@@ -8,7 +8,8 @@ from views import (create_user, login_user, get_all_posts, get_single_post, crea
                    create_reaction,update_reaction,delete_reaction, get_single_user, get_all_users,
                    get_all_subscriptions, get_single_subscription,create_subscription,
                    update_subscription, delete_subscription,get_all_post_reactions,get_single_post_reaction,
-                   create_post_reaction,update_post_reaction,delete_post_reaction)
+                   create_post_reaction,update_post_reaction,delete_post_reaction,
+                   update_subscription, delete_subscription, get_all_tags)
 
 
 
@@ -103,6 +104,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post_reaction(id)}"
                 else:
                     response = f"{get_all_post_reactions()}"
+            elif resource == "tags":
+                response = f"{get_all_tags()}"
 
         self.wfile.write(response.encode())
 
@@ -122,8 +125,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif resource == 'comments':
             response = create_comment(post_body)
         if resource == 'categories':
-            new_category = create_category(post_body)
-            self.wfile.write(f'{new_category}'.encode())
+            response = create_category(post_body)
         if resource == 'reactions':
             response = create_reaction(post_body)
         elif resource == 'subscriptions':
