@@ -97,18 +97,15 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_subscription(id)}"
                 else:
                     response = f"{get_all_subscriptions()}"
-<<<<<<< HEAD
-        else: 
-            (resource, query) = parsed
-            
-            if query.get('post_id') and resource == 'Comments':
-                response = get_comments_by_post(query['post_id'][0])
-                
-=======
             elif resource == "tags":
                 response = f"{get_all_tags()}"
 
->>>>>>> main
+        else:
+            (resource, query) = parsed
+
+            if query.get('post_id') and resource == 'Comments':
+                response = get_comments_by_post(query['post_id'][0])
+
         self.wfile.write(response.encode())
 
     def do_POST(self):

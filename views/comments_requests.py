@@ -134,8 +134,9 @@ def get_comments_by_post(post_id):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            comments = Comments(row['id'], row['author_id'], 
+            comment = Comments(row['id'], row['author_id'],
                             row['post_id'], row['content'])
-            comments.append(Comments.__dict__)
+
+            comments.append(comment.__dict__)
 
     return json.dumps(comments)
