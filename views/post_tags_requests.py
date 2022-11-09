@@ -14,7 +14,10 @@ def get_posts_by_tag(tag_id):
             pt.post_id,
             pt.tag_id,
         FROM PostTags pt
-
+        JOIN on Posts p
+            ON p.id = pt.post_id
+        JOIN on tags t
+            ON t.id = pt.tag_id
         """, ( tag_id, ))
 
         post_tag = []
