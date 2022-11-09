@@ -1,5 +1,6 @@
 import sqlite3
 import json
+<<<<<<< HEAD
 from models import PostTags
 
 def get_posts_by_tag(tag_id):
@@ -28,3 +29,23 @@ def get_posts_by_tag(tag_id):
             post_tag.append(PostTags.__dict__)
 
     return json.dumps(post_tags)
+=======
+
+def create_post_tags(new_post_tag):
+    '''creates a new tag on a post'''
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        INSERT INTO PostTags
+            (post_id, tag_id)
+        VALUES
+            (?, ?);
+        """, (new_post_tag['post_id'], new_post_tag['tag_id']))
+
+        id = db_cursor.lastrowid
+
+        new_post_tag['id'] = id
+
+    return json.dumps(new_post_tag)
+>>>>>>> main

@@ -80,3 +80,67 @@ def create_post(new_post):
         new_post['id'] = id
 
     return json.dumps(new_post)
+
+def update_post(id, new_post):
+    '''updates a single post'''
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Posts
+            SET
+                user_id = ?,
+                category_id = ?,
+                title = ?,
+                publication_date = ?,
+                image_url = ?,
+                content = ?,
+                approved = ?
+        WHERE id = ?
+        """, (new_post['user_id'], new_post['category_id'],
+              new_post['title'], new_post['publication_date'],
+              new_post['image_url'], new_post['content'], new_post['approved'], id, ))
+
+        rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        return False
+    else:
+        return True
+
+def delete_post(id):
+    '''deletes a single post'''
+    with sqlite3.connect("./db.sqlite3") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM Posts
+        WHERE id = ?
+        """, (id, ))
+
+def get_post_by_title(title):
+    '''get a single post by title'''
+    with sqlite3.connect("./db.sqlite3") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved
+        FROM Posts p
+        WHERE p.title = ?
+        """, ( title, ))
+
+        data = db_cursor.fetchone()
+
+        post = Posts(data['id'], data['user_id'], data['category_id'], data['title'],
+                    data['publication_date'], data['image_url'], data['content'], data['approved'])
+
+        return json.dumps(post.__dict__)
