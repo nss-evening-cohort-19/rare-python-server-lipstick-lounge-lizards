@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Comments
+from models import Comments, Posts, User
 
 def get_all_comments():
     """
@@ -125,8 +125,17 @@ def get_comments_by_post(post_id):
             c.id,
             c.author_id,
             c.post_id,
-            c.content
+            c.content,
+            p.title,
+            u.first_name,
+            u.last_name,
+            u.profile_image_url,
+            u.username
         FROM Comments c
+        JOIN Posts p
+        ON p.id = c.post_id
+        JOIN Users u
+        ON u.id = c.author_id
         WHERE c.post_id = ?
         """, ( post_id, ))
 
@@ -136,7 +145,11 @@ def get_comments_by_post(post_id):
         for row in dataset:
             comment = Comments(row['id'], row['author_id'],
                             row['post_id'], row['content'])
-
             comments.append(comment.__dict__)
-
-    return json.dumps(comments)
+            post = Posts(row['id'],"", "", row['title'],
+                         "", "", "", "")
+            user = User(row['id'], row['first_name'], row['last_name'], "", "",
+                        row['username'], "",row['profile_image_url'], "", "")
+            comment.post = post.__dict__
+            comment.user = user.__dict__
+        return json.dumps(comments)

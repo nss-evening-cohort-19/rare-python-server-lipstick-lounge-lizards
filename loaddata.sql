@@ -198,3 +198,20 @@ FROM Posts p
 JOIN Users u on u.id = p.user_id
 JOIN Categories c on c.id = p.category_id
 WHERE p.user_id = 2
+
+SELECT
+            c.id,
+            c.author_id,
+            c.post_id,
+            c.content,
+            p.title,
+            u.first_name,
+            u.last_name,
+            u.profile_image_url,
+            u.username
+        FROM Comments c
+        JOIN Posts p
+        ON p.id = c.post_id
+        JOIN Users u
+        ON u.id = c.author_id
+        WHERE 
