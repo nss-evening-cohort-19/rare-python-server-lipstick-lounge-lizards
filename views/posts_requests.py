@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Posts,Categories, User
+from models import Posts, Categories, User
 
 def get_all_posts():
     '''gets all of the posts'''
@@ -189,3 +189,41 @@ def get_posts_by_user(user_id):
             post.user = user.__dict__
             posts.append(post.__dict__)
         return json.dumps(posts)
+
+def get_posts_by_category(category_id):
+    """_summary_
+
+    Args:
+        category_id (_type_): _description_
+    """
+    with sqlite3.connect('./db.sqlite3') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            c.label category_name,
+            u.username,
+            u.first_name,
+            u.last_name
+        FROM Posts p
+        JOIN Categories c on c.id = p.category_id
+        JOIN User u on u.id = p.user_id
+        WHERE p.category = ?
+        """, ( category_id, ))
+        
+        posts = []
+        dataset = db_cursor.fetchall()
+        
+        for row in dataset:
+            post = Posts(row['id'], row['user_id'], row['category_id'],
+                         row['title'], row['publication_date'], row['image_url'],
+                         row['content'], row['approved'])
+            post.append(post.__dict__)
