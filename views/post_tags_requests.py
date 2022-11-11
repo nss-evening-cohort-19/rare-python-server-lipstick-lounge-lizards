@@ -20,8 +20,9 @@ def get_posts_by_tag(tag_id):
         FROM PostTags pt
         JOIN Posts p
             ON p.id = pt.post_id
-        JOIN tags t
+        JOIN Tags t
             ON t.id = pt.tag_id
+        WHERE pt.tag_id = ?
         """, ( tag_id, ))
 
         post_tag = []
@@ -29,18 +30,15 @@ def get_posts_by_tag(tag_id):
 
         for row in dataset:
             post_tags = PostTags(row['id'], row['post_id'], row['tag_id'])
-
-            post = Posts(row['title'], row['image_url'], row['content'])
-
-            tag = Tags(row['label'])
-            
-            post_tags.post = post.__dict__
-
-            post_tags.tag = tag.__dict__
-
             post_tag.append(post_tags.__dict__)
 
-    return json.dumps(post_tags)
+            post = Posts("", "", "", row['title'], "", row['image_url'], row['content'], "")
+            post_tags.post = post.__dict__
+
+            tag = Tags("", row['label'])
+            post_tags.tag = tag.__dict__
+
+        return json.dumps(post_tags)
 
 def create_post_tags(new_post_tag):
     '''creates a new tag on a post'''
