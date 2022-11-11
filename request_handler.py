@@ -39,14 +39,8 @@ from views import (
     get_all_tags,
     create_tag,
     create_post_tags,
-<<<<<<< HEAD
     get_all_post_tags,
-    update_post_tags)
-=======
-    get_posts_by_tag)
->>>>>>> main
-
-
+    update_post_tags, get_posts_by_tag)
 
 
 class HandleRequests(BaseHTTPRequestHandler):
