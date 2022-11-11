@@ -39,8 +39,12 @@ from views import (
     get_all_tags,
     create_tag,
     create_post_tags,
+<<<<<<< HEAD
     get_all_post_tags,
     update_post_tags)
+=======
+    get_posts_by_tag)
+>>>>>>> main
 
 
 
@@ -142,9 +146,10 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         else:
             (resource, key, value) = parsed
-
             if resource == 'comments' and key == 'post_id':
                 response = get_comments_by_post(value)
+            if resource == 'posts' and key == 'tag_id':
+                response = get_posts_by_tag(value)
             if resource == 'posts' and key == 'user_id':
                 response = get_posts_by_user(value)
         self.wfile.write(response.encode())
