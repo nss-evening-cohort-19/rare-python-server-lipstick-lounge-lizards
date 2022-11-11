@@ -179,6 +179,25 @@ SELECT
   u.created_on,
   u.active
 FROM Users u
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+SELECT
+    p.title,
+    p.content,
+    p.image_url,
+    pt.id,
+    pt.post_id,
+    pt.tag_id
+FROM PostTags pt
+JOIN Posts p
+    ON p.id = pt.post_id
+JOIN Tags t
+    ON t.id = pt.tag_id
+=======
+>>>>>>> main
+>>>>>>> main
+=======
 
 SELECT
     p.id,
@@ -215,3 +234,4 @@ SELECT
         JOIN Users u
         ON u.id = c.author_id
         WHERE 
+>>>>>>> main
