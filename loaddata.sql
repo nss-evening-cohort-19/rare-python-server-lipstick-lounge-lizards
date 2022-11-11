@@ -155,14 +155,12 @@ INSERT INTO `Categories` VALUES (null, "css");
 INSERT INTO `Categories` VALUES (null, "html");
 
 SELECT
-<<<<<<< HEAD
     a.id,
     a.label,
     a.image_url
 FROM Reactions a
 
 -- DELETE FROM PostReactions where id = 7
-=======
     c.id,
     c.author_id,
     c.post_id,
@@ -182,6 +180,7 @@ SELECT
   u.active
 FROM Users u
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 SELECT
     p.title,
@@ -197,4 +196,42 @@ JOIN Tags t
     ON t.id = pt.tag_id
 =======
 >>>>>>> main
+>>>>>>> main
+=======
+
+SELECT
+    p.id,
+    p.user_id,
+    p.category_id,
+    p.title,
+    p.publication_date,
+    p.image_url,
+    p.content,
+    p.approved,
+    c.label,
+    u.first_name,
+    u.last_name,
+    u.username,
+    u.profile_image_url
+FROM Posts p
+JOIN Users u on u.id = p.user_id
+JOIN Categories c on c.id = p.category_id
+WHERE p.user_id = 2
+
+SELECT
+            c.id,
+            c.author_id,
+            c.post_id,
+            c.content,
+            p.title,
+            u.first_name,
+            u.last_name,
+            u.profile_image_url,
+            u.username
+        FROM Comments c
+        JOIN Posts p
+        ON p.id = c.post_id
+        JOIN Users u
+        ON u.id = c.author_id
+        WHERE 
 >>>>>>> main
