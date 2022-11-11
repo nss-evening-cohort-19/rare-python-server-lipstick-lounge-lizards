@@ -17,4 +17,4 @@ create_comment, delete_comment,
 update_comment, get_comments_by_post)
 from .categories_requests import get_all_categories, create_category
 from .tags_requests import get_all_tags, create_tag
-from .post_tags_requests import create_post_tags
+from .post_tags_requests import create_post_tags, get_all_post_tags, update_post_tags

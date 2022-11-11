@@ -40,9 +40,8 @@ from views import (
     get_all_tags,
     create_tag,
     create_post_tags,
-    get_posts_by_tag)
-
-
+    get_all_post_tags,
+    update_post_tags, get_posts_by_tag)
 
 
 class HandleRequests(BaseHTTPRequestHandler):
@@ -137,6 +136,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_all_post_reactions()}"
             elif resource == "tags":
                 response = f"{get_all_tags()}"
+            elif resource == "posttags":
+                response = f"{get_all_post_tags()}"
 
         else:
             (resource, key, value) = parsed
@@ -203,6 +204,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             update_subscription(id, post_body)
         elif resource == "postreactions":
             update_post_reaction(id, post_body)
+        elif resource == "posttags":
+            update_post_tags(id, post_body)
 
         if success:
             self._set_headers(204)
