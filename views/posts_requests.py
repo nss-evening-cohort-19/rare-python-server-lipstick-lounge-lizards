@@ -226,4 +226,13 @@ def get_posts_by_category(category_id):
             post = Posts(row['id'], row['user_id'], row['category_id'],
                          row['title'], row['publication_date'], row['image_url'],
                          row['content'], row['approved'])
-            post.append(post.__dict__)
+            posts.append(post.__dict__)
+            
+            category = Categories(row['id'], row['label'])
+            user = User(row['id'], row['first_name'], row['last_name'],
+                        row['email'], row['bio'], row['username'], row['password'],
+                        row['profile_image_url'], row['created_on'], row['active'])
+            post.category = category.__dict__
+            post.user = user.__dict__
+    
+    return json.dumps(posts)
