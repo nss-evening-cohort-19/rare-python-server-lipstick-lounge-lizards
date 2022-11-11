@@ -7,12 +7,11 @@ def get_posts_by_tag(tag_id):
     with sqlite3.connect("./db.sqlite3") as conn:
         conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
-
         db_cursor.execute("""
         SELECT
             pt.id,
             pt.post_id,
-            pt.tag_id
+            pt.tag_id,
             p.title,
             p.image_url,
             p.content,
@@ -25,12 +24,12 @@ def get_posts_by_tag(tag_id):
         WHERE pt.tag_id = ?
         """, ( tag_id, ))
 
-        post_tag = []
+        post_tag_array = []
         dataset = db_cursor.fetchall()
 
         for row in dataset:
             post_tags = PostTags(row['id'], row['post_id'], row['tag_id'])
-            post_tag.append(post_tags.__dict__)
+            post_tag_array.append(post_tags.__dict__)
 
             post = Posts("", "", "", row['title'], "", row['image_url'], row['content'], "")
             post_tags.post = post.__dict__
@@ -38,7 +37,7 @@ def get_posts_by_tag(tag_id):
             tag = Tags("", row['label'])
             post_tags.tag = tag.__dict__
 
-        return json.dumps(post_tags)
+        return json.dumps(post_tag_array)
 
 def create_post_tags(new_post_tag):
     '''creates a new tag on a post'''
