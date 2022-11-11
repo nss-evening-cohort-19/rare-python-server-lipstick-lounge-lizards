@@ -215,8 +215,8 @@ def get_posts_by_category(category_id):
             u.last_name
         FROM Posts p
         JOIN Categories c on c.id = p.category_id
-        JOIN User u on u.id = p.user_id
-        WHERE p.category = ?
+        JOIN Users u on u.id = p.user_id
+        WHERE p.category_id = ?
         """, ( category_id, ))
         
         posts = []
@@ -228,10 +228,10 @@ def get_posts_by_category(category_id):
                          row['content'], row['approved'])
             posts.append(post.__dict__)
             
-            category = Categories(row['id'], row['label'])
+            category = Categories(row['id'], row['category_name'])
             user = User(row['id'], row['first_name'], row['last_name'],
-                        row['email'], row['bio'], row['username'], row['password'],
-                        row['profile_image_url'], row['created_on'], row['active'])
+                        "", "", row['username'], "",
+                        "", "", "")
             post.category = category.__dict__
             post.user = user.__dict__
     
