@@ -103,7 +103,7 @@ class HandleRequests(BaseHTTPRequestHandler):
             (resource, key, value) = parsed
             if resource == 'comments' and key == 'post_id':
                 response = get_comments_by_post(value)
-            if resource == 'PostTags' and key == 'tag_id':
+            if resource == 'posts' and key == 'tag_id':
                 response = get_posts_by_tag(value)
 
         self.wfile.write(response.encode())

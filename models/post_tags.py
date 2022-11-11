@@ -1,4 +1,5 @@
 """Module instantiates PostTags class"""
+# pylint: disable=invalid-name
 class PostTags():
     """_summary_
     """

@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import PostTags
+from models import PostTags, Posts, Tags
 
 def get_posts_by_tag(tag_id):
     '''gets all posts featuring a specific tag'''
@@ -10,13 +10,17 @@ def get_posts_by_tag(tag_id):
 
         db_cursor.execute("""
         SELECT
-            pt.id
+            pt.id,
             pt.post_id,
-            pt.tag_id,
+            pt.tag_id
+            p.title,
+            p.image_url,
+            p.content,
+            t.label
         FROM PostTags pt
-        JOIN on Posts p
+        JOIN Posts p
             ON p.id = pt.post_id
-        JOIN on tags t
+        JOIN tags t
             ON t.id = pt.tag_id
         """, ( tag_id, ))
 
@@ -25,7 +29,16 @@ def get_posts_by_tag(tag_id):
 
         for row in dataset:
             post_tags = PostTags(row['id'], row['post_id'], row['tag_id'])
-            post_tag.append(PostTags.__dict__)
+
+            post = Posts(row['title'], row['image_url'], row['content'])
+
+            tag = Tags(row['label'])
+            
+            post_tags.post = post.__dict__
+
+            post_tags.tag = tag.__dict__
+
+            post_tag.append(post_tags.__dict__)
 
     return json.dumps(post_tags)
 
