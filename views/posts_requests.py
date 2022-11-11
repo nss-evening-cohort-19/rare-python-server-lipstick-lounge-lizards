@@ -189,3 +189,38 @@ def get_posts_by_user(user_id):
             post.user = user.__dict__
             posts.append(post.__dict__)
         return json.dumps(posts)
+
+def get_posts_by_subscription(follower_id):
+    """_summary_
+
+    Args:
+        follower_id (_type_): _description_
+    """
+    with sqlite3.connect('./db.sqlite3') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor =conn.cursor()
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            c.label,
+            u.first_name,
+            u.last_name,
+            u.username,
+            u.profile_image_url,
+            a.id,
+            a.author_id,
+            a.follower_id
+        FROM Posts p
+        JOIN Subscriptions a
+        ON a.author_id = p.user_id
+          AND a.follower_id = u.user_id
+        JOIN Categories c
+        ON c.id = p.category_id
+            )
