@@ -10,10 +10,11 @@ from .post_reactions_requests import (
 from .subscriptions_requests import (
   get_all_subscriptions, get_single_subscription, create_subscription,
   update_subscription,delete_subscription)
-from .posts_requests import (get_all_posts, get_single_post,get_posts_by_user, create_post, update_post, delete_post,get_post_by_title)
+from .posts_requests import get_all_posts, get_single_post, create_post, update_post, delete_post, get_posts_by_user, get_post_by_title, get_posts_by_category, get_posts_by_subscription
+from. post_tags_requests import get_posts_by_tag
 from .comments_requests import (get_all_comments, get_single_comment,
 create_comment, delete_comment,
 update_comment, get_comments_by_post)
 from .categories_requests import get_all_categories, create_category
 from .tags_requests import get_all_tags, create_tag
-from .post_tags_requests import create_post_tags
+from .post_tags_requests import create_post_tags, get_all_post_tags, update_post_tags

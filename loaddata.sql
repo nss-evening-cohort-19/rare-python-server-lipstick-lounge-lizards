@@ -181,6 +181,19 @@ SELECT
 FROM Users u
 
 SELECT
+    p.title,
+    p.content,
+    p.image_url,
+    pt.id,
+    pt.post_id,
+    pt.tag_id
+FROM PostTags pt
+JOIN Posts p
+    ON p.id = pt.post_id
+JOIN Tags t
+    ON t.id = pt.tag_id
+
+SELECT
     p.id,
     p.user_id,
     p.category_id,
@@ -200,18 +213,44 @@ JOIN Categories c on c.id = p.category_id
 WHERE p.user_id = 2
 
 SELECT
-    c.id,
-    c.author_id,
-    c.post_id,
-    c.content,
-    p.title,
-    u.first_name,
-    u.last_name,
-    u.profile_image_url,
-    u.username
-FROM Comments c
-JOIN Posts p
-ON p.id = c.post_id
-JOIN Users u
-ON u.id = c.author_id
-WHERE 
+            c.id,
+            c.author_id,
+            c.post_id,
+            c.content,
+            p.title,
+            u.first_name,
+            u.last_name,
+            u.profile_image_url,
+            u.username
+        FROM Comments c
+        JOIN Posts p
+        ON p.id = c.post_id
+        JOIN Users u
+        ON u.id = c.author_id
+        WHERE 
+
+SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            c.label,
+            u.first_name,
+            u.last_name,
+            u.username,
+            u.profile_image_url,
+            a.id,
+            a.author_id,
+            a.follower_id
+        FROM Posts p
+        JOIN Subscriptions a
+        JOIN Users u
+        ON a.author_id = p.user_id
+          AND a.follower_id = u.id
+        JOIN Categories c
+        ON c.id = p.category_id
+        WHERE follower_id = 2
