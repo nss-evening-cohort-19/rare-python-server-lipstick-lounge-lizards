@@ -160,7 +160,7 @@ SELECT
     a.image_url
 FROM Reactions a
 
--- DELETE FROM PostReactions where id = 7
+SELECT
     c.id,
     c.author_id,
     c.post_id,
@@ -179,8 +179,6 @@ SELECT
   u.created_on,
   u.active
 FROM Users u
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 SELECT
     p.title,
@@ -194,10 +192,6 @@ JOIN Posts p
     ON p.id = pt.post_id
 JOIN Tags t
     ON t.id = pt.tag_id
-=======
->>>>>>> main
->>>>>>> main
-=======
 
 SELECT
     p.id,
@@ -234,4 +228,29 @@ SELECT
         JOIN Users u
         ON u.id = c.author_id
         WHERE 
->>>>>>> main
+
+SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            c.label,
+            u.first_name,
+            u.last_name,
+            u.username,
+            u.profile_image_url,
+            a.id,
+            a.author_id,
+            a.follower_id
+        FROM Posts p
+        JOIN Subscriptions a
+        JOIN Users u
+        ON a.author_id = p.user_id
+          AND a.follower_id = u.id
+        JOIN Categories c
+        ON c.id = p.category_id
+        WHERE follower_id = 2

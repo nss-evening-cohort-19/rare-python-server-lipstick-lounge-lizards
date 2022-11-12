@@ -12,6 +12,7 @@ from views import (
     delete_post,
     get_posts_by_user,
     get_posts_by_category,
+    get_posts_by_subscription,
     get_all_categories,
     create_category,
     get_all_comments,
@@ -149,6 +150,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_posts_by_user(value)
             if resource == 'posts' and key == 'category_id':
                 response = get_posts_by_category(value)
+            if resource == 'posts' and key == 'follower_id':
+                response = get_posts_by_subscription(value)
         self.wfile.write(response.encode())
 
     def do_POST(self):

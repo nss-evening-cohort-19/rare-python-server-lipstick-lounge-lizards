@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Posts, Categories, User
+from models import Posts, Categories, User, Subscriptions
 
 def get_all_posts():
     '''gets all of the posts'''
@@ -218,21 +218,80 @@ def get_posts_by_category(category_id):
         JOIN Users u on u.id = p.user_id
         WHERE p.category_id = ?
         """, ( category_id, ))
-        
+
         posts = []
         dataset = db_cursor.fetchall()
-        
+
         for row in dataset:
             post = Posts(row['id'], row['user_id'], row['category_id'],
                          row['title'], row['publication_date'], row['image_url'],
                          row['content'], row['approved'])
             posts.append(post.__dict__)
-            
+
             category = Categories(row['id'], row['category_name'])
             user = User(row['id'], row['first_name'], row['last_name'],
                         "", "", row['username'], "",
                         "", "", "")
             post.category = category.__dict__
             post.user = user.__dict__
-    
+
+    return json.dumps(posts)
+
+def get_posts_by_subscription(follower_id):
+    """_summary_
+
+    Args:
+        follower_id (_type_): _description_
+    """
+    with sqlite3.connect('./db.sqlite3') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor =conn.cursor()
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.user_id,
+            p.category_id,
+            p.title,
+            p.publication_date,
+            p.image_url,
+            p.content,
+            p.approved,
+            c.label,
+            u.first_name,
+            u.last_name,
+            u.username,
+            u.profile_image_url,
+            a.id,
+            a.author_id,
+            a.follower_id,
+            a.created_on
+        FROM Posts p
+        JOIN Subscriptions a
+        JOIN Users u
+        ON a.author_id = p.user_id
+          AND a.follower_id = u.id
+        JOIN Categories c
+        ON c.id = p.category_id
+        WHERE follower_id = ?
+        """, ( follower_id ))
+
+        posts = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            post = Posts(row['id'], row['user_id'], row['category_id'],
+                         row['title'], row['publication_date'], row['image_url'],
+                         row['content'], row['approved'])
+            posts.append(post.__dict__)
+
+            category = Categories(row['id'], row['label'])
+            subscription = Subscriptions(row['id'], row['follower_id'], row['author_id'],
+                                         row['created_on'])
+            user = User(row['id'], row['first_name'], row['last_name'],
+                        "", "", row['username'], "",
+                        "", "", "")
+            post.category = category.__dict__
+            post.subscription = subscription.__dict__
+            post.user = user.__dict__
+
     return json.dumps(posts)
