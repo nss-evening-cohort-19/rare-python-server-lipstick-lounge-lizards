@@ -44,10 +44,10 @@ def get_single_user(id):
             u.id,
             u.first_name,
             u.last_name,
-            u.username,
             u.email,
-            u.password,
             u.bio,
+            u.username,
+            u.password,
             u.profile_image_url,
             u.created_on,
             u.active
@@ -58,10 +58,10 @@ def get_single_user(id):
         data = db_cursor.fetchone()
     
         if data:
-            user = User(data['id'], data['first_name'], data['last_name'], data['username'],
-                        data['email'], data['password'], data["bio"], data["profile_image_url"], data["created_on"], data["active"])
+            user = User(data['id'], data['first_name'], data['last_name'], data['email'], data["bio"], 
+                        data['username'], data['password'], data["profile_image_url"], data["created_on"], data["active"])
         
-            return json.dumps(user.__dict__)
+        return json.dumps(user.__dict__)
 
 def login_user(user):
     """Checks for the user in the database
